@@ -37,3 +37,4 @@ appsettings.Development.json
 
 # Docker
 .dockerignore
+/.vs
