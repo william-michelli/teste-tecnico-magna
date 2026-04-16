@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using TaskManagement.Application.DTOs;
 
 namespace TaskManagement.Application.Interfaces
@@ -10,6 +11,7 @@ namespace TaskManagement.Application.Interfaces
         Task<IEnumerable<TaskDto>> SearchTasksAsync(string searchTerm);
         Task<TaskDto> CreateTaskAsync(CreateTaskDto createTaskDto);
         Task UpdateTaskAsync(int id, UpdateTaskDto updateTaskDto);
+        Task ConcludeTaskAsync(int id, ConcludeTaskDto updateTaskDto);
         Task DeleteTaskAsync(int id);
     }
 }

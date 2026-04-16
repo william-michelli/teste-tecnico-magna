@@ -6,7 +6,7 @@ const props = defineProps({
   statusFilter: { type: [String, Number], default: '' },
   searchTerm: { type: String, default: '' }
 })
-const emit = defineEmits(['change-status', 'change-search', 'edit', 'delete', 'refresh'])
+const emit = defineEmits(['change-status', 'change-search', 'edit', 'delete', 'refresh', 'conclude'])
 
 const statusOptions = [
   { label: 'Todas', value: '' },
@@ -71,6 +71,13 @@ function onSearchChange(event) {
       </thead>
       <tbody>
         <tr v-for="task in tasks" :key="task.id">
+          <td>
+            <input 
+              type="checkbox"
+              :checked="task.status === 2"
+              @change="$emit('conclude', task)"
+            />
+          </td>
           <td>{{ task.title }}</td>
           <td>{{ task.description }}</td>
           <td>{{ task.status }}</td>

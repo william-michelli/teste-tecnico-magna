@@ -25,4 +25,9 @@ namespace TaskManagement.Application.DTOs
         public string? Description { get; set; }
         public DomainTaskStatus Status { get; set; }
     }
+
+    public class ConcludeTaskDto
+    {
+        public DomainTaskStatus Status { get; set; }
+    }
 }

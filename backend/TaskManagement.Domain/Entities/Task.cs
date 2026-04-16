@@ -11,8 +11,8 @@ namespace TaskManagement.Domain.Entities
 
     public enum TaskStatus
     {
-        Pendente,
-        EmAndamento,
-        Concluido
+        Pendente,   // 0
+        EmAndamento,// 1
+        Concluido   // 2
     }
 }

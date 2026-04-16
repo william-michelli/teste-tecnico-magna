@@ -97,6 +97,28 @@ namespace TaskManagement.API.Controllers
             }
         }
 
+        [HttpPut("concluir/{id}")]
+        public async Task<IActionResult> Conclude(int id, [FromBody] ConcludeTaskDto updateTaskDto)
+        {
+            try
+            {
+                await _taskService.ConcludeTaskAsync(id, updateTaskDto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

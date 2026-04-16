@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import TaskForm from './components/TaskForm.vue'
 import TaskList from './components/TaskList.vue'
-import { getTasks, createTask, updateTask, deleteTask } from './services/taskService'
+import { getTasks, createTask, updateTask, deleteTask, concludeTask} from './services/taskService'
 
 const tasks = ref([])
 const loading = ref(false)
@@ -34,6 +34,23 @@ async function handleSubmit(payload) {
     } else {
       await createTask(payload)
     }
+    await loadTasks()
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : String(err)
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleConclude(task) {
+  loading.value = true
+  error.value = ''
+
+  try {
+    const newStatus = task.status === 2 ? 0 : 2// alterna entre Concluído e Pendente
+
+    await concludeTask(task.id, newStatus)
+
     await loadTasks()
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
@@ -112,6 +129,7 @@ onMounted(loadTasks)
         @edit="handleEdit"
         @delete="handleDelete"
         @refresh="loadTasks"
+        @conclude="handleConclude"
       />
     </div>
   </main>

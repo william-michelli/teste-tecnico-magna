@@ -82,6 +82,16 @@ namespace TaskManagement.Application.Services
             await _taskRepository.UpdateAsync(task);
         }
 
+        public async Task ConcludeTaskAsync(int id, ConcludeTaskDto updateTaskDto)
+        {
+            var task = await _taskRepository.GetByIdAsync(id);
+            if (task == null) throw new KeyNotFoundException("Task not found");
+
+            task.Status = updateTaskDto.Status;
+
+            await _taskRepository.UpdateAsync(task);
+        }
+
         public async Task DeleteTaskAsync(int id)
         {
             var task = await _taskRepository.GetByIdAsync(id);

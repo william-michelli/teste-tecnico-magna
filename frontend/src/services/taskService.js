@@ -43,6 +43,17 @@ export async function updateTask(id, task) {
   return handleResponse(response)
 }
 
+export async function concludeTask(id, status) {
+  const response = await fetch(`${baseUrl}/tasks/concluir/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      status: status
+    })
+  })
+  return handleResponse(response)
+}
+
 export async function deleteTask(id) {
   const response = await fetch(`${baseUrl}/tasks/${id}`, {
     method: 'DELETE'
