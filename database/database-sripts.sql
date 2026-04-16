@@ -11,9 +11,9 @@ CREATE TABLE Tasks (
   CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Inserir dados de exemplo
+-- Inserir dados
 INSERT INTO Tasks (Title, Description, Status)
 VALUES
-('Organizar backlog', 'Revisar as tarefas abertas e priorizar.', 0),
-('Implementar API', 'Criar endpoints para CRUD de tarefas.', 1),
-('Enviar relatório', 'Enviar relatório semanal para o time.', 0);
+('Compra arroz', '', 0),
+('Organizar gavetas', 'Gavetas da escrivaninha', 1),
+('Lavar a louça', '', 0);

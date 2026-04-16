@@ -18,6 +18,8 @@ dist/
 *.swp
 *.swo
 .vs/
+.vs/TaskManagement
+.backend/vs/TaskManagement
 
 # OS
 .DS_Store
