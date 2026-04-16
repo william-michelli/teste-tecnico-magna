@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: taskmanagement_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: TaskManagementDb
+      MYSQL_USER: taskuser
+      MYSQL_PASSWORD: taskpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./Database/create_task_management_database.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - taskmanagement_network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskmanagement_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=mysql;Database=TaskManagementDb;User=taskuser;Password=taskpass;
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - taskmanagement_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: taskmanagement_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - taskmanagement_network
+
+volumes:
+  mysql_data:
+
+networks:
+  taskmanagement_network:
+    driver: bridge

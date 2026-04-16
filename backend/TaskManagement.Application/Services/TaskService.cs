@@ -1,0 +1,108 @@
+using TaskManagement.Application.DTOs;
+using TaskManagement.Application.Interfaces;
+using TaskManagement.Domain.Entities;
+using TaskManagement.Domain.Interfaces;
+using DomainTaskStatus = TaskManagement.Domain.Entities.TaskStatus;
+
+namespace TaskManagement.Application.Services
+{
+    public class TaskService : ITaskService
+    {
+        private readonly ITaskRepository _taskRepository;
+
+        public TaskService(ITaskRepository taskRepository)
+        {
+            _taskRepository = taskRepository;
+        }
+
+        public async Task<TaskDto> GetTaskByIdAsync(int id)
+        {
+            var task = await _taskRepository.GetByIdAsync(id);
+            if (task == null) throw new KeyNotFoundException("Task not found");
+
+            return MapToDto(task);
+        }
+
+        public async Task<IEnumerable<TaskDto>> GetAllTasksAsync()
+        {
+            var tasks = await _taskRepository.GetAllAsync();
+            return tasks.Select(MapToDto);
+        }
+
+        public async Task<IEnumerable<TaskDto>> GetTasksByStatusAsync(string status)
+        {
+            if (!Enum.TryParse<DomainTaskStatus>(status, true, out var taskStatus))
+                throw new ArgumentException("Invalid status");
+
+            var tasks = await _taskRepository.GetByStatusAsync(taskStatus);
+            return tasks.Select(MapToDto);
+        }
+
+        public async Task<IEnumerable<TaskDto>> SearchTasksAsync(string searchTerm)
+        {
+            var tasks = await _taskRepository.SearchAsync(searchTerm);
+            return tasks.Select(MapToDto);
+        }
+
+        public async Task<TaskDto> CreateTaskAsync(CreateTaskDto createTaskDto)
+        {
+            if (string.IsNullOrWhiteSpace(createTaskDto.Title))
+                throw new ArgumentException("Title is required");
+
+            if (createTaskDto.Status == DomainTaskStatus.Concluido && string.IsNullOrWhiteSpace(createTaskDto.Title))
+                throw new ArgumentException("Cannot complete a task without a valid title");
+
+            var task = new TaskEntity
+            {
+                Title = createTaskDto.Title,
+                Description = createTaskDto.Description,
+                Status = createTaskDto.Status,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            await _taskRepository.AddAsync(task);
+            return MapToDto(task);
+        }
+
+        public async Task UpdateTaskAsync(int id, UpdateTaskDto updateTaskDto)
+        {
+            var task = await _taskRepository.GetByIdAsync(id);
+            if (task == null) throw new KeyNotFoundException("Task not found");
+
+            if (string.IsNullOrWhiteSpace(updateTaskDto.Title))
+                throw new ArgumentException("Title is required");
+
+            if (updateTaskDto.Status == DomainTaskStatus.Concluido && string.IsNullOrWhiteSpace(updateTaskDto.Title))
+                throw new ArgumentException("Cannot complete a task without a valid title");
+
+            task.Title = updateTaskDto.Title;
+            task.Description = updateTaskDto.Description;
+            task.Status = updateTaskDto.Status;
+
+            await _taskRepository.UpdateAsync(task);
+        }
+
+        public async Task DeleteTaskAsync(int id)
+        {
+            var task = await _taskRepository.GetByIdAsync(id);
+            if (task == null) throw new KeyNotFoundException("Task not found");
+
+            if (task.Status == DomainTaskStatus.Concluido)
+                throw new InvalidOperationException("Cannot delete a completed task");
+
+            await _taskRepository.DeleteAsync(id);
+        }
+
+        private static TaskDto MapToDto(TaskEntity task)
+        {
+            return new TaskDto
+            {
+                Id = task.Id,
+                Title = task.Title,
+                Description = task.Description,
+                Status = task.Status,
+                CreatedAt = task.CreatedAt
+            };
+        }
+    }
+}
