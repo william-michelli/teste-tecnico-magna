@@ -97,8 +97,8 @@ namespace TaskManagement.Application.Services
             var task = await _taskRepository.GetByIdAsync(id);
             if (task == null) throw new KeyNotFoundException("Task not found");
 
-            if (task.Status == DomainTaskStatus.Concluido)
-                throw new InvalidOperationException("Cannot delete a completed task");
+            //if (task.Status == DomainTaskStatus.Concluido)
+            //    throw new InvalidOperationException("Cannot delete a completed task");
 
             await _taskRepository.DeleteAsync(id);
         }
