@@ -78,6 +78,7 @@ function getStatusText(status) {
           <th>Descrição</th>
           <th>Status</th>
           <th>Criado em</th>
+          <th>Editado em</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -97,6 +98,12 @@ function getStatusText(status) {
           <td>{{ task.description }}</td>
           <td>{{ getStatusText(task.status) }}</td>
           <td>{{ new Date(task.createdAt).toLocaleString('pt-BR', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric'
+            }) }}
+          </td>
+          <td>{{ new Date(task.editedAt).toLocaleString('pt-BR', {
               day: '2-digit',
               month: '2-digit',
               year: 'numeric'

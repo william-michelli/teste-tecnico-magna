@@ -78,6 +78,7 @@ namespace TaskManagement.Application.Services
             task.Title = updateTaskDto.Title;
             task.Description = updateTaskDto.Description;
             task.Status = updateTaskDto.Status;
+            task.EditedAt = DateTime.UtcNow;
 
             await _taskRepository.UpdateAsync(task);
         }
@@ -111,7 +112,8 @@ namespace TaskManagement.Application.Services
                 Title = task.Title,
                 Description = task.Description,
                 Status = task.Status,
-                CreatedAt = task.CreatedAt
+                CreatedAt = task.CreatedAt,
+                EditedAt = task.EditedAt
             };
         }
     }

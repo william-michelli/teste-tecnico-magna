@@ -1,4 +1,3 @@
-//const baseUrl = import.meta.env.VITE_API_BASE_URL || 'https://localhost:44309/api'
 const baseUrl = 'https://localhost:44309/api'
 
 async function handleResponse(response) {
@@ -17,6 +16,7 @@ export async function getTasks(status, search) {
   console.log('Procurando na url:', `${baseUrl}/tasks?${params.toString()}`)
   const response = await fetch(`${baseUrl}/tasks?${params.toString()}`)
   console.log('Response status:', response.status)
+
   return handleResponse(response)
 }
 

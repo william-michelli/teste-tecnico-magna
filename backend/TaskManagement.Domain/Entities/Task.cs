@@ -7,6 +7,7 @@ namespace TaskManagement.Domain.Entities
         public string? Description { get; set; }
         public TaskStatus Status { get; set; } = TaskStatus.Pendente;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime EditedAt { get; set; } = DateTime.UtcNow;
     }
 
     public enum TaskStatus

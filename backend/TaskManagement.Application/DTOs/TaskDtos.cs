@@ -10,6 +10,7 @@ namespace TaskManagement.Application.DTOs
         public string? Description { get; set; }
         public DomainTaskStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime EditedAt { get; set; }
     }
 
     public class CreateTaskDto
