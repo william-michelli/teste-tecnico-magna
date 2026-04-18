@@ -18,7 +18,7 @@ namespace TaskManagement.Application.Services
         public async Task<TaskDto> GetTaskByIdAsync(int id)
         {
             var task = await _taskRepository.GetByIdAsync(id);
-            if (task == null) throw new KeyNotFoundException("Task not found");
+            if (task == null) throw new KeyNotFoundException("Tarefa não encontrada");
 
             return MapToDto(task);
         }
@@ -32,7 +32,7 @@ namespace TaskManagement.Application.Services
         public async Task<IEnumerable<TaskDto>> GetTasksByStatusAsync(string status)
         {
             if (!Enum.TryParse<DomainTaskStatus>(status, true, out var taskStatus))
-                throw new ArgumentException("Invalid status");
+                throw new ArgumentException("Status inválido");
 
             var tasks = await _taskRepository.GetByStatusAsync(taskStatus);
             return tasks.Select(MapToDto);
@@ -47,10 +47,10 @@ namespace TaskManagement.Application.Services
         public async Task<TaskDto> CreateTaskAsync(CreateTaskDto createTaskDto)
         {
             if (string.IsNullOrWhiteSpace(createTaskDto.Title))
-                throw new ArgumentException("Title is required");
+                throw new ArgumentException("Título é obrigatório");
 
             if (createTaskDto.Status == DomainTaskStatus.Concluido && string.IsNullOrWhiteSpace(createTaskDto.Title))
-                throw new ArgumentException("Cannot complete a task without a valid title");
+                throw new ArgumentException("Não é possível criar uma tarefa sem um título");
 
             var task = new TaskEntity
             {
@@ -67,13 +67,13 @@ namespace TaskManagement.Application.Services
         public async Task UpdateTaskAsync(int id, UpdateTaskDto updateTaskDto)
         {
             var task = await _taskRepository.GetByIdAsync(id);
-            if (task == null) throw new KeyNotFoundException("Task not found");
+            if (task == null) throw new KeyNotFoundException("Tarefa não encontrada");
 
             if (string.IsNullOrWhiteSpace(updateTaskDto.Title))
-                throw new ArgumentException("Title is required");
+                throw new ArgumentException("Título é obrigatório");
 
             if (updateTaskDto.Status == DomainTaskStatus.Concluido && string.IsNullOrWhiteSpace(updateTaskDto.Title))
-                throw new ArgumentException("Cannot complete a task without a valid title");
+                throw new ArgumentException("ão é possível atualizar uma tarefa sem um título");
 
             task.Title = updateTaskDto.Title;
             task.Description = updateTaskDto.Description;
@@ -85,7 +85,7 @@ namespace TaskManagement.Application.Services
         public async Task ConcludeTaskAsync(int id, ConcludeTaskDto updateTaskDto)
         {
             var task = await _taskRepository.GetByIdAsync(id);
-            if (task == null) throw new KeyNotFoundException("Task not found");
+            if (task == null) throw new KeyNotFoundException("Tarefa não encontrada");
 
             task.Status = updateTaskDto.Status;
 
@@ -95,10 +95,10 @@ namespace TaskManagement.Application.Services
         public async Task DeleteTaskAsync(int id)
         {
             var task = await _taskRepository.GetByIdAsync(id);
-            if (task == null) throw new KeyNotFoundException("Task not found");
+            if (task == null) throw new KeyNotFoundException("Tarefa não encontrada");
 
-            //if (task.Status == DomainTaskStatus.Concluido)
-            //    throw new InvalidOperationException("Cannot delete a completed task");
+            if (task.Status == DomainTaskStatus.Concluido)
+                throw new InvalidOperationException("Tarefa já concluída não pode ser deletada");
 
             await _taskRepository.DeleteAsync(id);
         }

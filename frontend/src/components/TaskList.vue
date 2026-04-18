@@ -1,4 +1,6 @@
 <script setup>
+import { PencilIcon, TrashIcon, ArrowPathIcon } from '@heroicons/vue/24/solid'
+
 const props = defineProps({
   tasks: { type: Array, default: () => [] },
   loading: { type: Boolean, default: false },
@@ -21,6 +23,15 @@ function onStatusChange(event) {
 
 function onSearchChange(event) {
   emit('change-search', event.target.value)
+}
+
+function getStatusText(status) {
+  switch (status) {
+    case 0: return 'Pendente'
+    case 1: return 'Em Andamento'
+    case 2: return 'Concluído'
+    default: return ''
+  }
 }
 </script>
 
@@ -47,8 +58,8 @@ function onSearchChange(event) {
         </label>
       </div>
 
-      <button class="secondary" @click="$emit('refresh')" :disabled="loading">
-        Atualizar
+      <button class="action-button" @click="$emit('refresh')" :disabled="loading">
+        <ArrowPathIcon class="icon icon-refresh"/>
       </button>
     </div>
 
@@ -62,6 +73,7 @@ function onSearchChange(event) {
     <table class="task-table" v-if="tasks.length > 0">
       <thead>
         <tr>
+          <th></th>
           <th>Título</th>
           <th>Descrição</th>
           <th>Status</th>
@@ -72,19 +84,31 @@ function onSearchChange(event) {
       <tbody>
         <tr v-for="task in tasks" :key="task.id">
           <td>
-            <input 
-              type="checkbox"
-              :checked="task.status === 2"
-              @change="$emit('conclude', task)"
-            />
+            <label class="custom-checkbox">
+              <input 
+                type="checkbox"
+                :checked="task.status === 2"
+                @change="$emit('conclude', task)"
+              />
+              <span class="checkmark"></span>
+            </label>
           </td>
           <td>{{ task.title }}</td>
           <td>{{ task.description }}</td>
-          <td>{{ task.status }}</td>
-          <td>{{ new Date(task.createdAt).toLocaleString() }}</td>
+          <td>{{ getStatusText(task.status) }}</td>
+          <td>{{ new Date(task.createdAt).toLocaleString('pt-BR', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric'
+            }) }}
+          </td>
           <td class="actions">
-            <button @click="$emit('edit', task)">Editar</button>
-            <button class="danger" @click="$emit('delete', task.id)">Excluir</button>
+            <button class="action-button" @click="$emit('edit', task)">     
+              <PencilIcon class="icon" />
+            </button>
+            <button class="action-button" @click="$emit('delete', task.id)">
+              <TrashIcon class="icon" />
+            </button>
           </td>
         </tr>
       </tbody>
