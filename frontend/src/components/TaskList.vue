@@ -1,5 +1,5 @@
 <script setup>
-import { PencilIcon, TrashIcon, ArrowPathIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/solid'
+import { PencilIcon, TrashIcon, ArrowPathIcon, ChevronLeftIcon, ChevronRightIcon, PlusSmallIcon  } from '@heroicons/vue/24/solid'
 
 const props = defineProps({
   pagedTasks: { type: Object, default: () => ({ items: [] }) },
@@ -61,6 +61,10 @@ function getStatusText(status) {
       <button class="action-button" @click="$emit('refresh')" :disabled="loading">
         <ArrowPathIcon class="icon icon-refresh"/>
       </button>
+
+      <!-- <button class="action-button" @click="showTaskModal = true">
+          <PlusSmallIcon class="icon icon-refresh"/> Nova Tarefa
+      </button> -->
     </div>
 
     <div class="status-row">
@@ -122,18 +126,20 @@ function getStatusText(status) {
     </table>
 
     <div class="pagination">
+      <!-- Voltar -->
       <button 
         @click="$emit('change-page', pagedTasks.page - 1)" 
-        :disabled="pagedTasks.page === 1"
+        :style="{ visibility: pagedTasks.page === 1 ? 'hidden' : 'visible' }"
       >
         <ChevronLeftIcon class="icon" />
       </button>
 
-      <span class="pagina-atual">Página {{ pagedTasks.page }}</span>
+      <span class="pagina-atual">Página <strong>{{ pagedTasks.page }}</strong> de <strong>{{ pagedTasks.totalPages }}</strong> </span>
 
+      <!-- Avançar -->
       <button 
         @click="$emit('change-page', pagedTasks.page + 1)" 
-        :disabled="pagedTasks.page * pagedTasks.pageSize >= pagedTasks.totalCount"
+       :style="{ visibility: pagedTasks.page >= pagedTasks.totalPages ? 'hidden' : 'visible' }"
       >
           <ChevronRightIcon class="icon" />
       </button>

@@ -38,7 +38,7 @@ async function handleSubmit(payload) {
     } else {
       await createTask(payload)
     }
-    await loadTasks()
+    await loadTasks(pagedTasks.value.page)
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
   } finally {
@@ -55,7 +55,7 @@ async function handleConclude(task) {
 
     await concludeTask(task.id, newStatus)
 
-    await loadTasks()
+    await loadTasks(pagedTasks.value.page)
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
   } finally {

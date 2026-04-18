@@ -34,7 +34,8 @@ public class TaskService : ITaskService
             Items = result.Items.Select(MapToDto),
             TotalCount = result.TotalCount,
             Page = result.Page,
-            PageSize = result.PageSize
+            PageSize = result.PageSize,
+            TotalPages = result.TotalPages
         };
     }
 
@@ -49,7 +50,8 @@ public class TaskService : ITaskService
             Items = result.Items.Select(MapToDto),
             TotalCount = result.TotalCount,
             Page = result.Page,
-            PageSize = result.PageSize
+            PageSize = result.PageSize,
+            TotalPages = result.TotalPages
         };
     }
 
@@ -61,7 +63,8 @@ public class TaskService : ITaskService
             Items = result.Items.Select(MapToDto),
             TotalCount = result.TotalCount,
             Page = result.Page,
-            PageSize = result.PageSize
+            PageSize = result.PageSize,
+            TotalPages = result.TotalPages
         };
     }
 
