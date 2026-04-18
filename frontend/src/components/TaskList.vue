@@ -1,14 +1,14 @@
 <script setup>
-import { PencilIcon, TrashIcon, ArrowPathIcon } from '@heroicons/vue/24/solid'
+import { PencilIcon, TrashIcon, ArrowPathIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/solid'
 
 const props = defineProps({
-  tasks: { type: Array, default: () => [] },
+  pagedTasks: { type: Object, default: () => ({ items: [] }) },
   loading: { type: Boolean, default: false },
   error: { type: String, default: '' },
   statusFilter: { type: [String, Number], default: '' },
   searchTerm: { type: String, default: '' }
 })
-const emit = defineEmits(['change-status', 'change-search', 'edit', 'delete', 'refresh', 'conclude'])
+const emit = defineEmits(['change-status', 'change-search', 'edit', 'delete', 'refresh', 'conclude', 'change-page'])
 
 const statusOptions = [
   { label: 'Todas', value: '' },
@@ -66,11 +66,11 @@ function getStatusText(status) {
     <div class="status-row">
       <span v-if="loading">Carregando tarefas...</span>
       <span v-else-if="error" class="error">{{ error }}</span>
-      <span v-else-if="tasks.length === 0">Nenhuma tarefa encontrada.</span>
-      <span v-else>{{ tasks.length }} tarefa(s) encontradas.</span>
+      <span v-else-if="pagedTasks.items.length === 0">Nenhuma tarefa encontrada.</span>
+      <span v-else>{{ pagedTasks.items.length ?? 0}} tarefa(s) encontradas.</span>
     </div>
 
-    <table class="task-table" v-if="tasks.length > 0">
+    <table class="task-table" v-if="pagedTasks.items.length > 0">
       <thead>
         <tr>
           <th></th>
@@ -83,7 +83,7 @@ function getStatusText(status) {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="task in tasks" :key="task.id">
+        <tr v-for="task in pagedTasks.items" :key="task.id">
           <td>
             <label class="custom-checkbox">
               <input 
@@ -120,5 +120,23 @@ function getStatusText(status) {
         </tr>
       </tbody>
     </table>
+
+    <div class="pagination">
+      <button 
+        @click="$emit('change-page', pagedTasks.page - 1)" 
+        :disabled="pagedTasks.page === 1"
+      >
+        <ChevronLeftIcon class="icon" />
+      </button>
+
+      <span class="pagina-atual">Página {{ pagedTasks.page }}</span>
+
+      <button 
+        @click="$emit('change-page', pagedTasks.page + 1)" 
+        :disabled="pagedTasks.page * pagedTasks.pageSize >= pagedTasks.totalCount"
+      >
+          <ChevronRightIcon class="icon" />
+      </button>
+    </div>
   </section>
 </template>

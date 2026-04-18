@@ -4,18 +4,22 @@ import TaskForm from './components/TaskForm.vue'
 import TaskList from './components/TaskList.vue'
 import { getTasks, createTask, updateTask, deleteTask, concludeTask} from './services/taskService'
 
-const tasks = ref([])
+const pagedTasks = ref({ items: [] })
 const loading = ref(false)
 const error = ref('')
 const statusFilter = ref('')
 const searchTerm = ref('')
 const selectedTask = ref(null)
 
-async function loadTasks() {
+async function loadTasks(page = 1) {
   loading.value = true
   error.value = ''
+
   try {
-    tasks.value = await getTasks(statusFilter.value, searchTerm.value)
+    const data = await getTasks(statusFilter.value, searchTerm.value, page)
+
+    pagedTasks.value = data
+
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
   } finally {
@@ -98,6 +102,11 @@ function handleSearchChange(value) {
   loadTasks()
 }
 
+function handlePageChange(page) {
+  console.log('mudando página para:', page)
+  loadTasks(page)
+}
+
 onMounted(loadTasks)
 </script>
 
@@ -119,7 +128,7 @@ onMounted(loadTasks)
       />
 
       <TaskList
-        :tasks="tasks"
+        :pagedTasks="pagedTasks"
         :loading="loading"
         :error="error"
         :statusFilter="statusFilter"
@@ -130,6 +139,7 @@ onMounted(loadTasks)
         @delete="handleDelete"
         @refresh="loadTasks"
         @conclude="handleConclude"
+        @change-page="handlePageChange"
       />
     </div>
   </main>

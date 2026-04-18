@@ -27,7 +27,7 @@ textarea {
   font: inherit;
 }
 
-.app-shell {
+.app-shell { 
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
@@ -62,6 +62,14 @@ textarea {
   border-radius: 18px;
   padding: 22px;
   box-shadow: 0 12px 30px rgba(31, 61, 114, 0.08);
+  max-height: fit-content;
+}
+
+.task-table td {
+  max-width: 150px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .task-form-card h2 {
@@ -257,6 +265,18 @@ button.secondary {
 }
 
 /* ##################################### */
+
+.pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagina-atual {
+  font-weight: 600;
+  align-self: center;
+}
 
 @media (max-width: 900px) {
   .content-grid {

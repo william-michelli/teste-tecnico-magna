@@ -8,16 +8,21 @@ async function handleResponse(response) {
   return response.status === 204 ? null : response.json()
 }
 
-export async function getTasks(status, search) {
+export async function getTasks(status, search, page = 1) {
   const params = new URLSearchParams()
   if (search) params.append('search', search)
   else if (status) params.append('status', status)
 
+  params.append('page', page)
+  params.append('pageSize', 5)
+
   console.log('Procurando na url:', `${baseUrl}/tasks?${params.toString()}`)
   const response = await fetch(`${baseUrl}/tasks?${params.toString()}`)
-  console.log('Response status:', response.status)
+  const data = await response.json()
+  console.log(data)
 
-  return handleResponse(response)
+
+  return data
 }
 
 export async function getTaskById(id) {
