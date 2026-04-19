@@ -187,6 +187,15 @@ table {
   table-layout: fixed; 
 }
 
+.task-done td {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.task-done {
+  background-color: #f5f5f5de;
+}
+
 </style>
 
 <template>
@@ -247,7 +256,11 @@ table {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="task in pagedTasks.items" :key="task.id">
+        <tr 
+          v-for="task in pagedTasks.items" 
+          :key="task.id"
+          :class="{ 'task-done': task.status === 2 }"
+        >
           <td>
             <label class="custom-checkbox">
               <input 
