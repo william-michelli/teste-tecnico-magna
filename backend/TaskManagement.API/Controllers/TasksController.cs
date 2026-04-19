@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TaskManagement.Application.DTOs;
 using TaskManagement.Application.Interfaces;
@@ -57,7 +57,7 @@ public class TasksController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-
+     
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateTaskDto createTaskDto)
     {

@@ -1,4 +1,4 @@
-using TaskManagement.Application.Common;
+Ôªøusing TaskManagement.Application.Common;
 using TaskManagement.Application.DTOs;
 using TaskManagement.Application.Interfaces;
 using TaskManagement.Domain.Entities;
@@ -21,7 +21,7 @@ public class TaskService : ITaskService
     public async Task<TaskDto> GetTaskByIdAsync(int id)
     {
         var task = await _taskRepository.GetByIdAsync(id);
-        if (task == null) throw new KeyNotFoundException("Tarefa n„o encontrada");
+        if (task == null) throw new KeyNotFoundException("Tarefa n√£o encontrada");
 
         return MapToDto(task);
     }
@@ -42,7 +42,7 @@ public class TaskService : ITaskService
     public async Task<PaginatedResult<TaskDto>> GetTasksByStatusAsync(string status, int page, int pageSize)
     {
         if (!Enum.TryParse<DomainTaskStatus>(status, true, out var taskStatus))
-            throw new ArgumentException("Status inv·lido");
+            throw new ArgumentException("Status inv√°lido");
 
         var result = await _taskRepository.GetByStatusAsync(taskStatus, page, pageSize);
         return new PaginatedResult<TaskDto>
@@ -71,13 +71,13 @@ public class TaskService : ITaskService
     public async Task<TaskDto> CreateTaskAsync(CreateTaskDto createTaskDto)
     {
         if (string.IsNullOrWhiteSpace(createTaskDto.Title))
-            throw new ArgumentException("TÌtulo È obrigatÛrio");
+            throw new ArgumentException("T√≠tulo √© obrigat√≥rio");
 
         if (createTaskDto.Title.Length > titleCharacterLimit)
-            throw new ArgumentException($"O tÌtulo ultrapassa o limite de {titleCharacterLimit} caracteres. Por favor, reduza o conte˙do.");
+            throw new ArgumentException($"O t√≠tulo ultrapassa o limite de {titleCharacterLimit} caracteres. Por favor, reduza o conte√∫do.");
 
         if (createTaskDto.Description != null && createTaskDto.Description.Length > descriptionCharacterLimit)
-            throw new ArgumentException($"A descriÁ„o ultrapassa o limite de {descriptionCharacterLimit} caracteres. Por favor, reduza o conte˙do.");
+            throw new ArgumentException($"A descri√ß√£o ultrapassa o limite de {descriptionCharacterLimit} caracteres. Por favor, reduza o conte√∫do.");
 
         var task = new TaskEntity
         {
@@ -94,16 +94,16 @@ public class TaskService : ITaskService
     public async Task UpdateTaskAsync(int id, UpdateTaskDto updateTaskDto)
     {
         var task = await _taskRepository.GetByIdAsync(id);
-        if (task == null) throw new KeyNotFoundException("Tarefa n„o encontrada");
+        if (task == null) throw new KeyNotFoundException("Tarefa n√£o encontrada");
 
         if (string.IsNullOrWhiteSpace(updateTaskDto.Title))
-            throw new ArgumentException("TÌtulo È obrigatÛrio");
+            throw new ArgumentException("T√≠tulo √© obrigat√≥rio");
 
         if (updateTaskDto.Title.Length > titleCharacterLimit)
-            throw new ArgumentException($"O tÌtulo ultrapassa o limite de {titleCharacterLimit} caracteres. Por favor, reduza o conte˙do.");
+            throw new ArgumentException($"O t√≠tulo ultrapassa o limite de {titleCharacterLimit} caracteres. Por favor, reduza o conte√∫do.");
 
         if (updateTaskDto.Description != null && updateTaskDto.Description.Length > descriptionCharacterLimit)
-            throw new ArgumentException($"A descriÁ„o ultrapassa o limite de {descriptionCharacterLimit} caracteres. Por favor, reduza o conte˙do.");
+            throw new ArgumentException($"A descri√ß√£o ultrapassa o limite de {descriptionCharacterLimit} caracteres. Por favor, reduza o conte√∫do.");
 
         task.Title = updateTaskDto.Title;
         task.Description = updateTaskDto.Description;
@@ -111,12 +111,12 @@ public class TaskService : ITaskService
         task.EditedAt = DateTime.UtcNow;
 
         await _taskRepository.UpdateAsync(task);
-    }
+    }  
 
     public async Task ConcludeTaskAsync(int id, ConcludeTaskDto updateTaskDto)
     {
         var task = await _taskRepository.GetByIdAsync(id);
-        if (task == null) throw new KeyNotFoundException("Tarefa n„o encontrada");
+        if (task == null) throw new KeyNotFoundException("Tarefa n√£o encontrada");
 
         task.Status = updateTaskDto.Status;
 
@@ -126,10 +126,10 @@ public class TaskService : ITaskService
     public async Task DeleteTaskAsync(int id)
     {
         var task = await _taskRepository.GetByIdAsync(id);
-        if (task == null) throw new KeyNotFoundException("Tarefa n„o encontrada");
+        if (task == null) throw new KeyNotFoundException("Tarefa n√£o encontrada");
 
         if (task.Status == DomainTaskStatus.Concluido)
-            throw new InvalidOperationException("Tarefa j· concluÌda n„o pode ser deletada");
+            throw new InvalidOperationException("Tarefa j√° conclu√≠da n√£o pode ser deletada");
 
         await _taskRepository.DeleteAsync(id);
     }
