@@ -7,6 +7,9 @@
 
 ## Execução
 
+### Banco de Dados
+O script de criação de banco está na pasta backend/database
+
 ### Backend
 
 ```bash
