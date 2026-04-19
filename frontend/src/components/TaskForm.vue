@@ -6,10 +6,6 @@ const props = defineProps({
     type: Object,
     default: null
   },
-  submitLabel: {
-    type: String,
-    default: 'Salvar'
-  },
   loading: {
     type: Boolean,
     default: false
@@ -53,8 +49,31 @@ function onSubmit() {
 
 function onCancel() {
   emit('cancel')
+
+  form.value = { title: '', description: '', status: 0 }//Se caso for um tarefa nova ele so limpa o form
 }
 </script>
+
+
+<style scoped>
+
+.form-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.task-form-card h2 {
+  margin: 0 0 16px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+</style>
 
 <template>
   <section class="task-form-card">
@@ -95,7 +114,7 @@ function onCancel() {
 
     <div class="form-actions">
       <button class="primary" @click="onSubmit" :disabled="loading || !form.title.trim()">
-        {{ submitLabel }}
+        Salvar
       </button>
       <button class="secondary" @click="onCancel" type="button" :disabled="loading">
         Cancelar

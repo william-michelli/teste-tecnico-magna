@@ -27,35 +27,6 @@ textarea {
   font: inherit;
 }
 
-.app-shell { 
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-.app-header {
-  margin-bottom: 20px;
-  padding: 24px;
-  color: #4f7cff;
-  text-align: center;
-}
-
-.app-header h1 {
-  margin: 0 0 8px;
-  font-size: clamp(2rem, 2.5vw, 3rem);
-}
-
-.app-header p {
-  margin: 0;
-  opacity: 0.9;
-}
-
-.content-grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: 1.2fr 2fr;
-}
-
 .task-form-card,
 .task-list-card {
   background: white;
@@ -63,22 +34,6 @@ textarea {
   padding: 22px;
   box-shadow: 0 12px 30px rgba(31, 61, 114, 0.08);
   max-height: fit-content;
-}
-
-.task-table td {
-  max-width: 150px; 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.task-form-card h2 {
-  margin: 0 0 16px;
-}
-
-.form-grid {
-  display: grid;
-  gap: 16px;
 }
 
 label {
@@ -105,64 +60,14 @@ select:focus {
   box-shadow: 0 0 0 4px rgba(79, 124, 255, 0.12);
 }
 
-.form-actions {
-  margin-top: 18px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.status-row {
-  margin-bottom: 14px;
-  font-size: 0.95rem;
-}
-
-.status-row .error {
-  color: #bf1650;
-}
-
-.task-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.task-table th,
-.task-table td {
-  padding: 14px 12px;
-  text-align: center;
-  border-bottom: 1px solid #eef2ff;
-}
+/* ###################################################################### */
+/* ############## Configurações padrões de todos os botões ############## */
 
 button {
   border: none;
   border-radius: 12px;
   cursor: pointer;
   padding: 12px 18px;
-  transition: transform 0.15s ease, background-color 0.2s ease;
-}
-
-/* ############## Botões de Ações ############## */
-
-button.action-button {
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  padding: 6px 6px;
-  background: none;
   transition: transform 0.15s ease, background-color 0.2s ease;
 }
 
@@ -180,105 +85,8 @@ button.secondary {
   color: #1c2533;
 }
 
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  text-align: center;
-}
-
-.icon {
-  width: 25px;
-  height: 25px;
-  color: rgb(57, 57, 61); /* importante */
-}
-
-.icon-refresh {
-  color: black; /* importante */
-}
-
-/* ############## Checkmark ############## */
-
-.task-table th {
-  color: #5f6c84;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 0.78rem;
-  text-align: center;
-}
-
-.custom-checkbox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-/* Esconde o original */
-.custom-checkbox input {
-  display: none;
-}
-
-/* Caixa */
-.checkmark {
-  width: 28px;
-  height: 28px;
-  border: 2px solid #666;
-  border-radius: 8px;
-  position: relative;
-  transition: all 0.2s ease;
-}
-
-/* Hover */
-.custom-checkbox:hover .checkmark {
-  border-color: #4f7cff; /* verde estilo Vue */
-}
-
-/* Marcado */
-.custom-checkbox input:checked + .checkmark {
-  background-color: #4f7cff;
-  border-color: #4f7cff;
-  transform: scale(1.1);
-}
-
-/* Check */
-.checkmark::after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Mostrar check */
-.custom-checkbox input:checked + .checkmark::after {
-  display: block;
-}
-
-/* Desenho ✔ */
-.checkmark::after {
-  left: 9px;
-  top: 4px;
-  width: 6px;
-  height: 14px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
-}
-
-/* ##################################### */
-
-.pagination {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagina-atual {
-  align-self: center;
-}
-
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .content-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr!important;
   }
 }

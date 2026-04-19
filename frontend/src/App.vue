@@ -110,6 +110,40 @@ function handlePageChange(page) {
 onMounted(loadTasks)
 </script>
 
+<style scoped>
+
+.app-shell { 
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.app-header {
+  margin-bottom: 20px;
+  padding: 24px;
+  color: #4f7cff;
+  text-align: center;
+}
+
+.app-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 2.5vw, 3rem);
+}
+
+.app-header p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.content-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 0.4fr 1fr; /* Form */
+  grid-template-columns: 2r 2fr; /* Lista */
+}
+
+</style>
+
 <template>
   <main class="app-shell">
     <header class="app-header">

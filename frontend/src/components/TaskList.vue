@@ -35,6 +35,162 @@ function getStatusText(status) {
 }
 </script>
 
+<style scoped>
+/* ############## Checkmark ############## */
+
+.task-table th {
+  color: #5f6c84;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.custom-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-checkbox input {
+  display: none;
+}
+
+/* Caixa */
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #666;
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox:hover .checkmark {
+  border-color: #4f7cff;
+}
+
+.custom-checkbox input:checked + .checkmark {
+  background-color: #4f7cff;
+  border-color: #4f7cff;
+  transform: scale(1.0);
+}
+
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked + .checkmark::after {
+  display: block;
+}
+
+.checkmark::after {
+  left: 4px;
+  top: 0px;
+  width: 7px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* ####################################### */
+/* ############## Paginação ############## */
+
+.pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagina-atual {
+  align-self: center;
+}
+
+/* ############################################# */
+/* ############## Botões de Ações ############## */
+
+button.action-button {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 6px 6px;
+  background: none;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  color: rgb(57, 57, 61); /* importante */
+}
+
+.icon-refresh {
+  color: black; /* importante */
+}
+
+/* ############################################# */
+/* ################## Tabela ################### */
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.status-row {
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+.status-row .error {
+  color: #bf1616;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-table th,
+.task-table td {
+  padding: 4px 0px;
+  text-align: center;
+  border-bottom: 1px solid #eef2ff;
+}
+
+.task-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed; 
+}
+
+</style>
+
 <template>
   <section class="task-list-card">
     <div class="toolbar">
@@ -61,10 +217,6 @@ function getStatusText(status) {
       <button class="action-button" @click="$emit('refresh')" :disabled="loading">
         <ArrowPathIcon class="icon icon-refresh"/>
       </button>
-
-      <!-- <button class="action-button" @click="showTaskModal = true">
-          <PlusSmallIcon class="icon icon-refresh"/> Nova Tarefa
-      </button> -->
     </div>
 
     <div class="status-row">
@@ -75,6 +227,16 @@ function getStatusText(status) {
     </div>
 
     <table class="task-table" v-if="pagedTasks.items.length > 0">
+      <colgroup>
+        <col style="width: 5%;">
+        <col style="width: 20%;">
+        <col style="width: 31%;">
+        <col style="width: 15%;">
+        <col style="width: 12%;">
+        <col style="width: 12%;">
+        <col style="width: 5%;">
+      </colgroup>
+
       <thead>
         <tr>
           <th></th>
@@ -104,13 +266,13 @@ function getStatusText(status) {
           <td>{{ new Date(task.createdAt).toLocaleString('pt-BR', {
               day: '2-digit',
               month: '2-digit',
-              year: 'numeric'
+              year: '2-digit'
             }) }}
           </td>
           <td>{{ new Date(task.editedAt).toLocaleString('pt-BR', {
               day: '2-digit',
               month: '2-digit',
-              year: 'numeric'
+              year: '2-digit'
             }) }}
           </td>
           <td class="actions">

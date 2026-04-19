@@ -1,8 +1,6 @@
--- Criar banco
 CREATE DATABASE TaskManagementDb;
 USE TaskManagementDb;
 
--- Criar tabela
 CREATE TABLE Tasks (
   Id INT AUTO_INCREMENT PRIMARY KEY,
   Title VARCHAR(50) NOT NULL,
@@ -12,9 +10,13 @@ CREATE TABLE Tasks (
   EditedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Inserir dados
 INSERT INTO Tasks (Title, Description, Status)
 VALUES
-('Compra arroz', '', 0),
-('Organizar gavetas', 'Gavetas da escrivaninha', 1),
-('Lavar a louça', '', 0);
+('Comprar arroz', 'Ir ao mercado comprar 2kg de arroz', 0),
+('Lavar a louça', 'Louça do jantar de ontem', 0),
+('Estudar SQL', 'Revisar joins e subqueries', 1),
+('Fazer exercícios', 'Treino de peito e tríceps', 1),
+('Pagar contas', 'Luz e internet', 0),
+('Atualizar currículo', 'Adicionar experiência recente', 2),
+('Limpar o quarto', 'Organizar roupas e aspirar', 0),
+('Responder e-mails', 'Pendências do trabalho', 2);
