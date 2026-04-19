@@ -1,3 +1,10 @@
+## Obrgatórios ter instalado
+
+ - Node.js
+ - .NET
+ - MySQL
+ - Docker (Se for rodar com ele)
+
 ## Execução
 
 ### Backend

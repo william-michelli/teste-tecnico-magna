@@ -59,8 +59,6 @@ public class TaskRepository : ITaskRepository
         {
             throw;
         }
-
-
     }
 
     public async Task UpdateAsync(TaskEntity task)
@@ -78,9 +76,4 @@ public class TaskRepository : ITaskRepository
             await _context.SaveChangesAsync();
         }
     }
-
-    #region Funções Privadas
-
-
-    #endregion
 }
