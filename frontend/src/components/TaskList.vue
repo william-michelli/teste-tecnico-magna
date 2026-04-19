@@ -233,7 +233,7 @@ table {
       <span v-else>{{ pagedTasks.items.length ?? 0}} tarefa(s) encontradas.</span>
     </div>
 
-    <table class="task-table" v-if="pagedTasks.items.length > 0">
+    <table class="task-table" v-if="!loading && pagedTasks.items.length > 0">
       <colgroup>
         <col style="width: 5%;">
         <col style="width: 20%;">
