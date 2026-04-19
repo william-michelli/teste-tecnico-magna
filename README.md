@@ -42,9 +42,3 @@ Para executar a aplicação completa com Docker:
 3. Acesse:
    - Frontend: http://localhost:3000
    - API: http://localhost:8080
-   - MySQL: localhost:3306
-
-Para desenvolvimento, execute apenas o banco:
-```bash
-docker-compose up mysql
-```

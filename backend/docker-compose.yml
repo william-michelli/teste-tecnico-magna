@@ -28,7 +28,7 @@ services:
       dockerfile: Dockerfile
     container_name: taskmanagement_api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__DefaultConnection=Server=mysql;Database=TaskManagementDb;User=taskuser;Password=taskpass;
     ports:
       - "8080:8080"
