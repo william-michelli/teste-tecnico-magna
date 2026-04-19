@@ -272,7 +272,7 @@ table {
             </label>
           </td>
           <td>{{ task.title }}</td>
-          <td>{{ task.description }}</td>
+          <td>{{ task.description || '-' }}</td>
           <td>{{ getStatusText(task.status) }}</td>
           <td>{{ new Date(task.createdAt).toLocaleString('pt-BR', {
               day: '2-digit',
