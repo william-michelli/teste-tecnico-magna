@@ -1,4 +1,4 @@
-## Obrgatórios ter instalado
+## Obrigatórios ter instalado
 
  - Node.js
  - .NET
