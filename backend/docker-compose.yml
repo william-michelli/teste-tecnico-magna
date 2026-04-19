@@ -2,6 +2,7 @@ services:
      
   mysql:
     image: mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p123456"]
       interval: 5s
@@ -29,7 +30,7 @@ services:
     container_name: taskmanagement_api
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Server=mysql;Database=TaskManagementDb;User=taskuser;Password=taskpass;
+      - ConnectionStrings__DefaultConnection=Server=mysql;Database=TaskManagementDb;User=taskuser;Password=taskpass;CharSet=utf8mb4
     ports:
       - "8080:8080"
     depends_on:
