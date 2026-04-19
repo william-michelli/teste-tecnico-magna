@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F47A1A11-7268-4ABE-882A-18CE1CCE0568}|TaskManagement.Application\\TaskManagement.Application.csproj|c:\\users\\william\\desktop\\magnadatatestegithub\\backend\\taskmanagement.application\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F47A1A11-7268-4ABE-882A-18CE1CCE0568}|TaskManagement.Application\\TaskManagement.Application.csproj|solutionrelative:taskmanagement.application\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD25471E-FACA-4D34-A04A-2E4750A96F22}|TaskManagement.API\\TaskManagement.API.csproj|c:\\users\\william\\desktop\\magnadatatestegithub\\backend\\taskmanagement.api\\controllers\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD25471E-FACA-4D34-A04A-2E4750A96F22}|TaskManagement.API\\TaskManagement.API.csproj|solutionrelative:taskmanagement.api\\controllers\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD25471E-FACA-4D34-A04A-2E4750A96F22}|TaskManagement.API\\TaskManagement.API.csproj|c:\\users\\william\\desktop\\magnadatatestegithub\\backend\\taskmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD25471E-FACA-4D34-A04A-2E4750A96F22}|TaskManagement.API\\TaskManagement.API.csproj|solutionrelative:taskmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD25471E-FACA-4D34-A04A-2E4750A96F22}|TaskManagement.API\\TaskManagement.API.csproj|c:\\users\\william\\desktop\\magnadatatestegithub\\backend\\taskmanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{BD25471E-FACA-4D34-A04A-2E4750A96F22}|TaskManagement.API\\TaskManagement.API.csproj|solutionrelative:taskmanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TasksController.cs",
+              "DocumentMoniker": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\TaskManagement.API\\Controllers\\TasksController.cs",
+              "RelativeDocumentMoniker": "TaskManagement.API\\Controllers\\TasksController.cs",
+              "ToolTip": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\TaskManagement.API\\Controllers\\TasksController.cs",
+              "RelativeToolTip": "TaskManagement.API\\Controllers\\TasksController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T19:15:41.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TaskService.cs",
+              "DocumentMoniker": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\TaskManagement.Application\\Services\\TaskService.cs",
+              "RelativeDocumentMoniker": "TaskManagement.Application\\Services\\TaskService.cs",
+              "ToolTip": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\TaskManagement.Application\\Services\\TaskService.cs",
+              "RelativeToolTip": "TaskManagement.Application\\Services\\TaskService.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAYwHEAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T18:47:26.685Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\TaskManagement.API\\appsettings.json",
+              "RelativeDocumentMoniker": "TaskManagement.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\TaskManagement.API\\appsettings.json",
+              "RelativeToolTip": "TaskManagement.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-19T18:19:01.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\TaskManagement.API\\Program.cs",
+              "RelativeDocumentMoniker": "TaskManagement.API\\Program.cs",
+              "ToolTip": "C:\\Users\\William\\Desktop\\MagnaDataTesteGithub\\backend\\TaskManagement.API\\Program.cs",
+              "RelativeToolTip": "TaskManagement.API\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T17:50:21.537Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
