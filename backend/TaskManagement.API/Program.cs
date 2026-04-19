@@ -31,8 +31,27 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<TaskManagementDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 21))
+        new MySqlServerVersion(new Version(8, 0, 21)),
+        mySqlOptions =>
+        {
+            mySqlOptions.EnableRetryOnFailure();
+        }
     ));
+
+builder.Services.AddDbContext<TaskManagementDbContext>(options =>
+    options.UseMySql(
+    builder.Configuration.GetConnectionString("DefaultConnection"),
+    new MySqlServerVersion(new Version(8, 0, 21)),
+    mySqlOptions =>
+    {
+        mySqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 10,
+            maxRetryDelay: TimeSpan.FromSeconds(5),
+            errorNumbersToAdd: null);
+    })
+);
+
+
 
 // DI
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();

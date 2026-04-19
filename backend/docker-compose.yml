@@ -1,21 +1,26 @@
-version: '3.8'
-
 services:
+     
   mysql:
     image: mysql:8.0
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p123456"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     container_name: taskmanagement_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: TaskManagementDb
       MYSQL_USER: taskuser
       MYSQL_PASSWORD: taskpass
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./Database/create_task_management_database.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/database-scripts.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - taskmanagement_network
+
 
   api:
     build:
@@ -23,10 +28,10 @@ services:
       dockerfile: Dockerfile
     container_name: taskmanagement_api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=mysql;Database=TaskManagementDb;User=taskuser;Password=taskpass;
     ports:
-      - "8080:80"
+      - "8080:8080"
     depends_on:
       - mysql
     networks:
@@ -34,13 +39,14 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ../frontend
       dockerfile: Dockerfile
     container_name: taskmanagement_frontend
     ports:
       - "3000:80"
     depends_on:
-      - api
+      mysql:
+        condition: service_healthy
     networks:
       - taskmanagement_network
 

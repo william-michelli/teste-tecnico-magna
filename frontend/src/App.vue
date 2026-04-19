@@ -30,7 +30,7 @@ async function loadTasks(page = 1) {
 
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
-    toastRef.value.show('Erro: {}'.format(error.value), 'error')
+    showErrorToast(error.value)
   } finally {
     loading.value = false
   }
