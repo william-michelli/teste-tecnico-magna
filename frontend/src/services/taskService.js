@@ -19,8 +19,6 @@ export async function getTasks(status, search, page = 1) {
   console.log('Procurando na url:', `${baseUrl}/tasks?${params.toString()}`)
   const response = await fetch(`${baseUrl}/tasks?${params.toString()}`)
   const data = await response.json()
-  console.log(data)
-
 
   return data
 }
@@ -56,6 +54,7 @@ export async function concludeTask(id, status) {
       status: status
     })
   })
+
   return handleResponse(response)
 }
 

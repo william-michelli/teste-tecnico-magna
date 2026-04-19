@@ -42,8 +42,7 @@
               "RelativeToolTip": "TaskManagement.API\\Controllers\\TasksController.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAB4AAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-18T14:30:17.045Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-18T14:30:17.045Z"
             },
             {
               "$type": "Document",
@@ -68,8 +67,7 @@
               "RelativeToolTip": "TaskManagement.Infrastructure\\Repositories\\TaskRepository.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAA1wAwAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T18:06:44.296Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-16T18:06:44.296Z"
             }
           ]
         }

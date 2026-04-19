@@ -116,23 +116,21 @@ function getStatusText(status) {
 
 button.action-button {
   border: none;
-  border-radius: 12px;
   cursor: pointer;
-  padding: 6px 6px;
+  padding: 3px 3px;
   background: none;
-  transition: transform 0.15s ease, background-color 0.2s ease;
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
   text-align: center;
 }
 
 .icon {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   color: rgb(57, 57, 61); /* importante */
 }
 

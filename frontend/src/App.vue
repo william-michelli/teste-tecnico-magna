@@ -2,7 +2,10 @@
 import { ref, onMounted } from 'vue'
 import TaskForm from './components/TaskForm.vue'
 import TaskList from './components/TaskList.vue'
+import Toast from './components/Toast.vue'
+
 import { getTasks, createTask, updateTask, deleteTask, concludeTask} from './services/taskService'
+
 
 const pagedTasks = ref({ items: [] })
 const loading = ref(false)
@@ -10,6 +13,11 @@ const error = ref('')
 const statusFilter = ref('')
 const searchTerm = ref('')
 const selectedTask = ref(null)
+const toastRef = ref()
+
+async function showErrorToast(message) {
+  toastRef.value.show(`[Erro] ${message}`, 'error')
+}
 
 async function loadTasks(page = 1) {
   loading.value = true
@@ -22,6 +30,7 @@ async function loadTasks(page = 1) {
 
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
+    toastRef.value.show('Erro: {}'.format(error.value), 'error')
   } finally {
     loading.value = false
   }
@@ -35,12 +44,16 @@ async function handleSubmit(payload) {
     if (selectedTask.value) {
       await updateTask(selectedTask.value.id, payload)
       selectedTask.value = null
+      toastRef.value.show("Tarefa atualizada com sucesso!")
     } else {
       await createTask(payload)
+      toastRef.value.show("Tarefa criada com sucesso!")
     }
+    
     await loadTasks(pagedTasks.value.page)
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
+    showErrorToast(error.value)
   } finally {
     loading.value = false
   }
@@ -55,9 +68,16 @@ async function handleConclude(task) {
 
     await concludeTask(task.id, newStatus)
 
+    const message =
+      newStatus === 2
+        ? 'Tarefa concluída com sucesso!'
+        : 'Tarefa marcada como pendente!'
+
+    toastRef.value.show(message)
     await loadTasks(pagedTasks.value.page)
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
+    showErrorToast(error.value)
   } finally {
     loading.value = false
   }
@@ -78,9 +98,11 @@ async function handleDelete(id) {
     if (selectedTask.value?.id === id) {
       selectedTask.value = null
     }
+    toastRef.value.show("Tarefa excluída com sucesso!")
     await loadTasks()
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
+    showErrorToast(error.value)
   } finally {
     loading.value = false
   }
@@ -175,6 +197,8 @@ onMounted(loadTasks)
         @conclude="handleConclude"
         @change-page="handlePageChange"
       />
+
+      <Toast ref="toastRef" />
     </div>
   </main>
 </template>

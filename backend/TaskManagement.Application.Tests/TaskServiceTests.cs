@@ -16,17 +16,6 @@ public class TaskServiceTests
     private readonly int page = 1;
     private readonly int pageSize = 100;
 
-    private readonly PaginatedResult<TaskEntity> pagedResult = new() { 
-        Items = new List<TaskEntity> {
-            new () { Id = 1, Title = "Task 1", Status = DomainTaskStatus.Pendente},
-            new () { Id = 2, Title = "Task 2", Status = DomainTaskStatus.Concluido },
-            new () { Id = 3, Title = "Important Task", Status = DomainTaskStatus.Pendente }
-        },
-        TotalCount = 2,
-        Page = 1,
-        PageSize = 100
-    };
-
     public TaskServiceTests()
     {
         _mockRepository = new Mock<ITaskRepository>();
@@ -36,14 +25,11 @@ public class TaskServiceTests
     [Fact]
     public async Task GetTaskByIdAsync_ShouldReturnTask_WhenTaskExists()
     {
-        // Arrange
         var task = new TaskEntity { Id = 1, Title = "Test Task", Status = DomainTaskStatus.Pendente };
         _mockRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(task);
 
-        // Act
         var result = await _taskService.GetTaskByIdAsync(1);
 
-        // Assert
         Assert.NotNull(result);
         Assert.Equal(1, result.Id);
         Assert.Equal("Test Task", result.Title);
@@ -54,32 +40,56 @@ public class TaskServiceTests
     {
         _mockRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((TaskEntity?)null);
 
-        // Act & Assert
         await Assert.ThrowsAsync<KeyNotFoundException>(() => _taskService.GetTaskByIdAsync(1));
     }
 
     [Fact]
     public async Task GetAllTasksAsync_ShouldReturnAllTasks()
     {
-        _mockRepository.Setup(r => r.GetAllAsync(page, pageSize)).ReturnsAsync(pagedResult);
+        PaginatedResult<TaskEntity> pagedResult = new()
+        {
+                Items = new List<TaskEntity> {
+                new () { Id = 1, Title = "Task 1", Status = DomainTaskStatus.Pendente},
+                new () { Id = 2, Title = "Task 2", Status = DomainTaskStatus.Concluido },
+                new () { Id = 3, Title = "Important Task", Status = DomainTaskStatus.Pendente }
+            },
+            TotalCount = 2,
+            Page = 1,
+            PageSize = 100
+        };
 
-        // Act
+        _mockRepository
+            .Setup(r => r.GetAllAsync(page, pageSize))
+            .ReturnsAsync(pagedResult);
+
         var result = await _taskService.GetAllTasksAsync(page, pageSize);
 
-        // Assert
-        Assert.Equal(2, result.Items.Count());
-        Assert.Equal("Task 1", result.Items.First().Title);
+        Assert.Equal(3, result.Items.Count());
     }
 
     [Fact]
     public async Task GetTasksByStatusAsync_ShouldReturnFilteredTasks()
     {
-        _mockRepository.Setup(r => r.GetByStatusAsync(DomainTaskStatus.Pendente, page, pageSize)).ReturnsAsync(pagedResult);
+        var filteredResult = new PaginatedResult<TaskEntity>
+        {
+            Items = new List<TaskEntity>
+            {
+                new() { Id = 1, Title = "Task 1", Status = DomainTaskStatus.Pendente },
+                new() { Id = 3, Title = "Important Task", Status = DomainTaskStatus.Pendente }
+            },
+            TotalCount = 2,
+            Page = 1,
+            PageSize = 100
+        };
+
+        _mockRepository
+            .Setup(r => r.GetByStatusAsync(DomainTaskStatus.Pendente, page, pageSize))
+            .ReturnsAsync(filteredResult);
 
         var result = await _taskService.GetTasksByStatusAsync("Pendente", page, pageSize);
 
-        Assert.Single(result.Items);
-        Assert.Equal("Task 1", result.Items.First().Title);
+        Assert.Equal(2, result.Items.Count());
+        Assert.All(result.Items, t => Assert.Equal("Pendente", t.Status.ToString()));
     }
 
     [Fact]
@@ -91,7 +101,20 @@ public class TaskServiceTests
     [Fact]
     public async Task SearchTasksAsync_ShouldReturnMatchingTasks()
     {
-        _mockRepository.Setup(r => r.SearchAsync("Important", page, pageSize)).ReturnsAsync(pagedResult);
+        var searchResult = new PaginatedResult<TaskEntity>
+        {
+            Items = new List<TaskEntity>
+            {
+                new() { Id = 3, Title = "Important Task", Status = DomainTaskStatus.Pendente }
+            },
+            TotalCount = 1,
+            Page = 1,
+            PageSize = 100
+        };
+
+        _mockRepository
+            .Setup(r => r.SearchAsync("Important", page, pageSize))
+            .ReturnsAsync(searchResult);
 
         var result = await _taskService.SearchTasksAsync("Important", page, pageSize);
 
